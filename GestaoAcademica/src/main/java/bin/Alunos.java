@@ -7,15 +7,21 @@ public class Alunos {
     private String email_Aluno;
     private String celular;
     private String telefone;
+    private int id_Turma;
+    private int id_Curso;
 
-    public Alunos(int id_Aluno, String nome, String endereco, String email_Aluno, String celular, String telefone) {
+    public Alunos(int id_Aluno, String nome, String endereco, String email_Aluno, String celular, String telefone, int id_Turma, int id_Curso) {
         this.id_Aluno = id_Aluno;
         this.nome = nome;
         this.endereco = endereco;
         this.email_Aluno = email_Aluno;
         this.celular = celular;
         this.telefone = telefone;
+        this.id_Turma = id_Turma;
+        this.id_Curso = id_Curso;
     }
+    
+    
 
     public Alunos() {
     }
@@ -54,6 +60,22 @@ public class Alunos {
 
     public String getCelular() {
         return celular;
+    }
+
+    public int getId_Turma() {
+        return id_Turma;
+    }
+
+    public void setId_Turma(int id_Turma) {
+        this.id_Turma = id_Turma;
+    }
+
+    public int getId_Curso() {
+        return id_Curso;
+    }
+
+    public void setId_Curso(int id_Curso) {
+        this.id_Curso = id_Curso;
     }
 
     public void setCelular(String celular) {

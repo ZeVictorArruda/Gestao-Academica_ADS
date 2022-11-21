@@ -24,8 +24,34 @@ public class AlunosDAO implements DAO<Alunos> {
 
     @Override
     public Optional<Alunos> get(long id) {
-        //Problemas com a implementação deste metodo. Tentarei novamente outra hora
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        String sql = "SELECT * FROM alunos WHERE id_Aluno = " + id;
+        Connection con = null;
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+         Alunos alunos = new Alunos();
+        try {
+            con = ConnectionFactory.getConnection();
+            statement = con.prepareStatement(sql);
+            resultSet = statement.executeQuery();
+           
+            alunos.setId_Aluno(resultSet.getInt("id_Aluno"));
+            alunos.setNome(resultSet.getString("Nome"));
+            alunos.setEndereco(resultSet.getString("endereco"));
+            alunos.setEmail_Aluno(resultSet.getString("email_Aluno"));
+            alunos.setCelular(resultSet.getString("celular"));
+            alunos.setTelefone(resultSet.getString("telefone"));
+
+        } catch (Exception ex) {
+            try {
+                throw new SQLException("Erro ao procurar o aluno "
+                        + ex.getMessage(), ex);
+            } catch (SQLException ex1) {
+                Logger.getLogger(AlunosDAO.class.getName()).log(Level.SEVERE, null, ex1);
+            }
+        } finally {
+            ConnectionFactory.closeConnection(con, statement, resultSet);
+        }
+        return Optional.of(alunos);
     }
 
     @Override
@@ -64,7 +90,8 @@ public class AlunosDAO implements DAO<Alunos> {
 
     @Override
     public void save(Alunos alunos) {
-        String sql = "INSERT INTO alunos (nome,endereco,email_Aluno,celular,telefone) VALUES (?,?,?,?,?)";
+        String sql = "INSERT INTO alunos (nome,endereco,email_Aluno,celular,"
+                + "telefone,id_Turma,id_Curso) VALUES (?,?,?,?,?,?,?)";
         Connection con = null;
         PreparedStatement statement = null;
         try {
@@ -75,6 +102,8 @@ public class AlunosDAO implements DAO<Alunos> {
             statement.setString(3, alunos.getEmail_Aluno());
             statement.setString(4, alunos.getCelular());
             statement.setString(5, alunos.getTelefone());
+            statement.setInt(6, alunos.getId_Turma());
+            statement.setInt(7, alunos.getId_Curso());
             statement.execute();
         } catch (SQLException ex) {
             throw new RuntimeException("Erro ao salvar Aluno "
@@ -85,9 +114,34 @@ public class AlunosDAO implements DAO<Alunos> {
     }
 
     @Override
-    public void update(Alunos t, String[] params) {
-        //duvidas em relação ao update
-    }
+    public void update(Alunos alunos, String[] params) {
+String sql = "UPDATE alunos SET nome = ?, endereco = ?, email_Aluno = ?, "
+        + "celular = ?, telefone = ?, id_turma = ?, id_curso = ? WHERE id_Aluno = ?";
+
+
+        Connection con = null;
+        PreparedStatement statement = null;
+        try {
+            con = ConnectionFactory.getConnection();
+            statement = con.prepareStatement(sql);
+            
+            con = ConnectionFactory.getConnection();
+            statement = con.prepareStatement(sql);
+            statement.setString(1, params[1]);
+            statement.setString(2, params[2]);
+            statement.setString(3, params[3]);
+            statement.setString(4, params[4]);
+            statement.setString(5, params[5]);
+            statement.setInt(6, Integer.parseInt(params[6]));
+            statement.setInt(7, Integer.parseInt(params[7]));
+            statement.setInt(8, Integer.parseInt(params[0]));
+            statement.execute();
+        } catch (Exception ex) {
+            throw new RuntimeException("Erro ao alterar tarefa "
+                    + ex.getMessage(), ex);
+        } finally {
+            ConnectionFactory.closeConnection(con, statement);
+        }    }
 
     @Override
     public void delete(Alunos alunos) {
