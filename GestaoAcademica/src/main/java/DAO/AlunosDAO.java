@@ -113,35 +113,64 @@ public class AlunosDAO implements DAO<Alunos> {
         }
     }
 
+    /* (non-Javadoc)
+     * @see DAO.DAO#update(java.lang.Object, java.lang.String[])
+     */
     @Override
     public void update(Alunos alunos, String[] params) {
-String sql = "UPDATE alunos SET nome = ?, endereco = ?, email_Aluno = ?, "
-        + "celular = ?, telefone = ?, id_turma = ?, id_curso = ? WHERE id_Aluno = ?";
-
+        String sql = "UPDATE alunos SET nome = ?, endereco = ?, email_Aluno = ?, "
+        + "celular = ?, telefone = ?, id_turma = ?, id_curso = ? WHERE id_Aluno = ?" ;
 
         Connection con = null;
         PreparedStatement statement = null;
+
+
+        for( int i = 0; i < 8; i++){
+            if(params[i] == null){
+                switch (i){
+                    case 0: 
+                    params[i] = alunos.getNome();
+                    break;
+                    case 1:
+                    params[i] = alunos.getEndereco();
+                    break;
+                    case 2:
+                    params[i] = alunos.getEmail_Aluno();
+                    break;
+                    case 3:
+                    params[i] = alunos.getCelular();
+                    break;
+                    case 4:
+                    params[i] = alunos.getTelefone();
+                    break;
+                    case 5:
+                    params[i] = alunos.getId_Turma();
+                    break;
+                    case 6:
+                    params[i] = alunos.getId_Curso();
+                    break;
+            }
+        }
         try {
             con = ConnectionFactory.getConnection();
             statement = con.prepareStatement(sql);
-            
-            con = ConnectionFactory.getConnection();
-            statement = con.prepareStatement(sql);
-            statement.setString(1, params[1]);
-            statement.setString(2, params[2]);
-            statement.setString(3, params[3]);
-            statement.setString(4, params[4]);
-            statement.setString(5, params[5]);
-            statement.setInt(6, Integer.parseInt(params[6]));
-            statement.setInt(7, Integer.parseInt(params[7]));
-            statement.setInt(8, Integer.parseInt(params[0]));
+
+            statement.setString(1, params[0]);
+            statement.setString(2, params[1]);
+            statement.setString(3, params[2]);
+            statement.setString(4, params[3]);
+            statement.setString(5, params[4]);
+            statement.setInt(6, Integer.parseInt(params[5]));
+            statement.setInt(7, Integer.parseInt(params[6]));
+            statement.setInt(8, Integer.parseInt(alunos.getId_Aluno()));
             statement.execute();
         } catch (Exception ex) {
-            throw new RuntimeException("Erro ao alterar tarefa "
-                    + ex.getMessage(), ex);
+            throw new RuntimeException("Erro ao alterar tarefa " + ex.getMessage(), ex);
         } finally {
             ConnectionFactory.closeConnection(con, statement);
-        }    }
+        }
+    }
+    }
 
     @Override
     public void delete(Alunos alunos) {
