@@ -5,20 +5,24 @@ public class Professores {
   private Integer idade_Professor;
   private String endereco_Professor;
   private String email_Professor;
-  private String telefome_Professor;
+  private String telefone_Professor;
   private String celular_Professor;
+  private int id_turma;
+  private int id_disciplina;
 
   public Professores() {
   }
 
   public Professores(String nome_Professor, Integer idade_Professor, String endereco_Professor, String email_Professor,
-      String telefome_Professor, String celular_Professor) {
+      String telefone_Professor, String celular_Professor, int id_turma, int id_disciplina) {
     this.nome_Professor = nome_Professor;
     this.idade_Professor = idade_Professor;
     this.endereco_Professor = endereco_Professor;
     this.email_Professor = email_Professor;
-    this.telefome_Professor = telefome_Professor;
+    this.telefone_Professor = telefone_Professor;
     this.celular_Professor = celular_Professor;
+    this.id_turma = id_turma;
+    this.id_disciplina = id_disciplina;
   }
 
   public String getNome_Professor() {
@@ -53,14 +57,6 @@ public class Professores {
     this.email_Professor = email_Professor;
   }
 
-  public String getTelefome_Professor() {
-    return telefome_Professor;
-  }
-
-  public void setTelefome_Professor(String telefome_Professor) {
-    this.telefome_Professor = telefome_Professor;
-  }
-
   public String getCelular_Professor() {
     return celular_Professor;
   }
@@ -68,4 +64,29 @@ public class Professores {
   public void setCelular_Professor(String celular_Professor) {
     this.celular_Professor = celular_Professor;
   }
+
+  public String getTelefone_Professor() {
+    return telefone_Professor;
+  }
+
+  public void setTelefone_Professor(String telefone_Professor) {
+    this.telefone_Professor = telefone_Professor;
+  }
+
+  public int getId_turma() {
+    return id_turma;
+  }
+
+  public void setId_turma(int id_turma) {
+    this.id_turma = id_turma;
+  }
+
+  public int getId_disciplina() {
+    return id_disciplina;
+  }
+
+  public void setId_disciplina(int id_disciplina) {
+    this.id_disciplina = id_disciplina;
+  }
+  
 }

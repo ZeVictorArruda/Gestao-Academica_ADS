@@ -94,8 +94,8 @@ public class ProfessoresDAO implements DAO<Professores> {
   }
 
   public void update(Professores professores, String[] params) {
-    String sql = "UPDATE professores SET nome = ?, endereco = ?, email_Professores = ?, "
-        + "celular = ?, telefone = ?, id_turma = ?, id_curso = ? WHERE id_Professores = ?";
+    String sql = "UPDATE professores SET nome_Professor = ?, idade_professor, endereco_Professor = ?, email_Professores = ?, "
+        + "telefone_Professor = ?, celular_Professor = ?, id_curso = ?, id_disciplina = ? WHERE id_Professores = ?";
 
     Connection con = null;
     PreparedStatement statement = null;

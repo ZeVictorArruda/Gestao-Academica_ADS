@@ -20,8 +20,6 @@ public class Alunos {
         this.id_Turma = id_Turma;
         this.id_Curso = id_Curso;
     }
-    
-    
 
     public Alunos() {
     }
