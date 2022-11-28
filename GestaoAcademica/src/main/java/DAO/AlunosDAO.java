@@ -73,6 +73,8 @@ public class AlunosDAO implements DAO<Alunos> {
                 alunos.setEmail_Aluno(resultSet.getString("email_Aluno"));
                 alunos.setCelular(resultSet.getString("celular"));
                 alunos.setTelefone(resultSet.getString("telefone"));
+                alunos.setId_Turma(resultSet.getInt("id_Turma"));
+                alunos.setId_Curso(resultSet.getInt("id_Curso"));
                 alunosList.add(alunos);
             }
         } catch (Exception ex) {
@@ -125,7 +127,8 @@ public class AlunosDAO implements DAO<Alunos> {
         PreparedStatement statement = null;
 
 
-        for( int i = 0; i < 8; i++){
+        for( int i = 0; i < 7; i++){
+            String convertString = "";
             if(params[i] == null){
                 switch (i){
                     case 0: 
@@ -144,10 +147,10 @@ public class AlunosDAO implements DAO<Alunos> {
                     params[i] = alunos.getTelefone();
                     break;
                     case 5:
-                    params[i] = alunos.getId_Turma();
+                    params[i] = convertString + alunos.getId_Turma();
                     break;
                     case 6:
-                    params[i] = alunos.getId_Curso();
+                    params[i] = convertString + alunos.getId_Curso();
                     break;
             }
         }
@@ -162,7 +165,7 @@ public class AlunosDAO implements DAO<Alunos> {
             statement.setString(5, params[4]);
             statement.setInt(6, Integer.parseInt(params[5]));
             statement.setInt(7, Integer.parseInt(params[6]));
-            statement.setInt(8, Integer.parseInt(alunos.getId_Aluno()));
+            statement.setInt(8, alunos.getId_Aluno());
             statement.execute();
         } catch (Exception ex) {
             throw new RuntimeException("Erro ao alterar tarefa " + ex.getMessage(), ex);
